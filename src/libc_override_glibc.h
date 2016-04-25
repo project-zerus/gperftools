@@ -129,6 +129,14 @@ void (* MALLOC_HOOK_MAYBE_VOLATILE __malloc_initialize_hook)(void)
     = &glibc_override_malloc_init_hook;
 #endif
 
+#include <malloc.h>
+
+#ifdef __MALLOC_HOOK_VOLATILE
+#define MALLOC_HOOK_MAYBE_VOLATILE volatile
+#else
+#define MALLOC_HOOK_MAYBE_VOLATILE
+#endif
+
 void* (* MALLOC_HOOK_MAYBE_VOLATILE __malloc_hook)(size_t, const void*)
     = &glibc_override_malloc;
 void* (* MALLOC_HOOK_MAYBE_VOLATILE __realloc_hook)(void*, size_t, const void*)
